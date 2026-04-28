@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { Leaf, Sprout } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { MobileFrame } from '../components/MobileFrame';
+import logo from '@/assets/logo.jpeg';
 
 export function SplashScreen() {
   const navigate = useNavigate();
@@ -14,62 +15,77 @@ export function SplashScreen() {
     return () => clearTimeout(timer);
   }, [navigate]);
 
+  // Curva de animação de alto nível (Ease Out suave) idêntica à WelcomeScreen
+  const customEase = [0.16, 1, 0.3, 1];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: customEase },
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-700 via-green-600 to-teal-700 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
       <MobileFrame hideNavigation>
-        <div className="h-full flex flex-col items-center justify-center bg-gradient-to-br from-emerald-700 via-green-600 to-teal-700 px-8 relative overflow-hidden">
-          {/* Animated Background Elements */}
-          <div className="absolute inset-0 overflow-hidden opacity-20">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-white rounded-full blur-3xl animate-pulse"
-                 style={{ animationDuration: '3s' }} />
-            <div className="absolute bottom-20 right-10 w-40 h-40 bg-emerald-300 rounded-full blur-3xl animate-pulse"
-                 style={{ animationDuration: '4s', animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal-400 rounded-full blur-3xl animate-pulse"
-                 style={{ animationDuration: '5s', animationDelay: '0.5s' }} />
-          </div>
+        <div className="relative h-full w-full overflow-hidden bg-[#060D0A] flex flex-col justify-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          
+          {/* Abstract Ambient Background - Idêntico à WelcomeScreen */}
+          <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-emerald-900/40 via-emerald-900/5 to-transparent pointer-events-none" />
+          <motion.div 
+            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-32 -right-32 w-96 h-96 bg-emerald-600 rounded-full blur-[120px] pointer-events-none" 
+          />
+          <motion.div 
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute top-1/3 -left-32 w-80 h-80 bg-teal-600 rounded-full blur-[100px] pointer-events-none" 
+          />
+          <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[120%] h-64 bg-emerald-950/70 blur-[80px] pointer-events-none" />
 
-          {/* Logo Container with Animation */}
-          <div className="relative z-10 animate-fade-in-up">
-            <div className="relative mb-8">
-              {/* Main Logo Circle */}
-              <div className="w-40 h-40 mx-auto bg-white/25 backdrop-blur-2xl rounded-full flex items-center justify-center border-4 border-white/50 shadow-2xl animate-scale-in">
-                <div className="w-36 h-36 bg-white/20 rounded-full flex items-center justify-center">
-                  <Leaf className="w-20 h-20 text-white animate-float"
-                        style={{ animationDuration: '3s' }} />
-                </div>
+          {/* Orquestrador Único para Animação em Cascata */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="relative z-10 flex flex-col items-center px-6"
+          >
+            <motion.div variants={itemVariants} className="relative mb-6 group">
+              <div className="absolute inset-0 bg-emerald-500/30 blur-2xl rounded-full scale-110 transition-all duration-700" />
+              <div className="relative w-44 h-44 bg-zinc-900 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center transform overflow-hidden">
+                <img src={logo} alt="APEX BIOHOME Logo" className="w-full h-full object-cover" />
               </div>
+            </motion.div>
+            
+            <motion.h1 variants={itemVariants} className="text-[2.25rem] font-light tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-2 text-center leading-tight">
+              APEX BIOHOME
+            </motion.h1>
+            <motion.p variants={itemVariants} className="text-emerald-400 font-medium tracking-[0.2em] text-xs mb-8 uppercase">
+              Sustentabilidade em casa
+            </motion.p>
 
-              {/* Secondary Icon */}
-              <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-emerald-400 rounded-full flex items-center justify-center border-4 border-white shadow-xl animate-bounce-in"
-                   style={{ animationDelay: '0.3s', animationDuration: '0.6s' }}>
-                <Sprout className="w-8 h-8 text-white" />
-              </div>
-            </div>
-
-            {/* Brand Name */}
-            <div className="text-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <h1 className="text-5xl text-white mb-3 tracking-wide">
-                EcoPlant
-              </h1>
-              <div className="h-1 w-24 bg-white/70 mx-auto rounded-full mb-4" />
-              <p className="text-white/90 text-base tracking-wider uppercase text-sm">
-                Sustentabilidade Inteligente
-              </p>
-            </div>
-          </div>
-
-          {/* Loading Indicator */}
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-fade-in"
-               style={{ animationDelay: '1s' }}>
-            <div className="flex gap-2">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"
-                   style={{ animationDelay: '0s' }} />
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"
-                   style={{ animationDelay: '0.2s' }} />
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"
-                   style={{ animationDelay: '0.4s' }} />
-            </div>
-          </div>
+            {/* Loading Indicator adaptado ao tema escuro */}
+            <motion.div variants={itemVariants} className="flex gap-2">
+              <div className="w-2 h-2 bg-emerald-500/80 rounded-full animate-pulse" style={{ animationDelay: '0s' }} />
+              <div className="w-2 h-2 bg-emerald-500/80 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+              <div className="w-2 h-2 bg-emerald-500/80 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+            </motion.div>
+          </motion.div>
+          
         </div>
       </MobileFrame>
     </div>
