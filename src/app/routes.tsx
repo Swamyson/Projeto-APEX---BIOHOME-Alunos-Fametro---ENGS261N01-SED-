@@ -1,0 +1,39 @@
+import { createBrowserRouter } from "react-router";
+import { SplashScreen } from "./screens/SplashScreen";
+import { WelcomeScreen } from "./screens/WelcomeScreen";
+import { RegisterScreen } from "./screens/RegisterScreen";
+import { DashboardScreen } from "./screens/DashboardScreen";
+import { QuestionnaireScreen } from "./screens/QuestionnaireScreen";
+import { ResultsScreen } from "./screens/ResultsScreen";
+import { PlantDetailScreen } from "./screens/PlantDetailScreen";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: SplashScreen,
+  },
+  {
+    path: "/welcome",
+    Component: WelcomeScreen,
+  },
+  {
+    path: "/register",
+    Component: RegisterScreen,
+  },
+  {
+    path: "/dashboard",
+    Component: DashboardScreen,
+  },
+  {
+    path: "/questionnaire/:roomId",
+    Component: QuestionnaireScreen,
+  },
+  {
+    path: "/results/:roomId",
+    Component: ResultsScreen,
+  },
+  {
+    path: "/plant/:plantId",
+    Component: PlantDetailScreen,
+  },
+]);
