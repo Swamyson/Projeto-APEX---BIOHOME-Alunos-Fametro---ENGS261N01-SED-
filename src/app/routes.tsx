@@ -5,6 +5,7 @@ import { RegisterScreen } from "./screens/RegisterScreen";
 import { DashboardScreen } from "./screens/DashboardScreen";
 import { QuestionnaireScreen } from "./screens/QuestionnaireScreen";
 import { ResultsScreen } from "./screens/ResultsScreen";
+import { PlantsScreen } from "./screens/PlantsScreen";
 import { PlantDetailScreen } from "./screens/PlantDetailScreen";
 
 export const router = createBrowserRouter([
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
   {
     path: "/results/:roomId",
     Component: ResultsScreen,
+  },
+  {
+    path: "/plants",
+    Component: PlantsScreen,
   },
   {
     path: "/plant/:plantId",
