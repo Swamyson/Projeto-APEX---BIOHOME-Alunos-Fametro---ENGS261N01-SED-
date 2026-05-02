@@ -6,6 +6,13 @@ export interface PlantBenefit {
   color: string;
 }
 
+export interface PlantAlert {
+  type: 'toxic' | 'no-direct-sun' | 'cold-sensitive' | 'high-humidity' | 'low-light-only' | 'pet-friendly';
+  message: string;
+  icon: string;
+  severity: 'warning' | 'danger' | 'info';
+}
+
 export interface Plant {
   id: string;
   name: string;
@@ -35,6 +42,7 @@ export interface Plant {
     purifier: boolean;
   };
   layouts?: string[];
+  alerts?: PlantAlert[];
 }
 
 export const allPlants: Plant[] = [
@@ -71,6 +79,10 @@ export const allPlants: Plant[] = [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400',
       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400',
       'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400'
+    ],
+    alerts: [
+      { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
+      { type: 'low-light-only', message: 'Prefere luz indireta', icon: '🌑', severity: 'info' }
     ]
   },
   {
@@ -101,6 +113,10 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Remove formaldeído, xilenos e benzeno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Aumenta umidade local', color: 'text-cyan-600' }
+    ],
+    alerts: [
+      { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
+      { type: 'high-humidity', message: 'Prefere alta umidade', icon: '💧', severity: 'warning' }
     ]
   },
   {
@@ -131,6 +147,10 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído, benzeno', color: 'text-blue-600' },
       { icon: Sparkles, text: 'Libera oxigênio à noite', color: 'text-emerald-600' }
+    ],
+    alerts: [
+      { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
+      { type: 'pet-friendly', message: 'Não tóxica para pets', icon: '🐱', severity: 'info' }
     ]
   },
   {
@@ -279,6 +299,11 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído, tolueno e xileno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Excelente umidificadora natural', color: 'text-cyan-600' }
+    ],
+    alerts: [
+      { type: 'pet-friendly', message: 'Segura para pets', icon: '🐱', severity: 'info' },
+      { type: 'high-humidity', message: 'Requer alta umidade', icon: '💧', severity: 'warning' },
+      { type: 'cold-sensitive', message: 'Sensível ao frio', icon: '❄️', severity: 'warning' }
     ]
   },
   {
@@ -309,6 +334,11 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Remove formaldeído, xileno, tolueno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Altíssima taxa de transpiração e umidade', color: 'text-cyan-600' }
+    ],
+    alerts: [
+      { type: 'pet-friendly', message: 'Segura para pets', icon: '🐱', severity: 'info' },
+      { type: 'high-humidity', message: 'Excelente umidificadora', icon: '💧', severity: 'info' },
+      { type: 'cold-sensitive', message: 'Não tolera temperaturas abaixo de 10°C', icon: '❄️', severity: 'warning' }
     ]
   },
   {
@@ -338,6 +368,11 @@ export const allPlants: Plant[] = [
     },
     benefits: [
       { icon: Wind, text: 'Elimina diversos compostos nocivos', color: 'text-blue-600' }
+    ],
+    alerts: [
+      { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
+      { type: 'high-humidity', message: 'Requer alta umidade', icon: '💧', severity: 'warning' },
+      { type: 'cold-sensitive', message: 'Temperatura ideal: 18-27°C', icon: '❄️', severity: 'warning' }
     ]
   }
 ];
@@ -411,4 +446,50 @@ export function getRecommendations(answers: Record<string, any>): Plant[] {
 
   // Return top 3-4 recommendations
   return scoredPlants.filter(s => s.score > 0).slice(0, 4).map(s => s.plant);
+}
+
+export function getSimilarPlants(plantId: string, limit: number = 3): Plant[] {
+  const currentPlant = allPlants.find(p => p.id === plantId);
+  if (!currentPlant) return [];
+
+  const scoredPlants = allPlants
+    .filter(p => p.id !== plantId)
+    .map(plant => {
+      let score = 0;
+
+      // Same difficulty level
+      if (plant.difficulty === currentPlant.difficulty) score += 3;
+
+      // Similar light requirements
+      const lightOverlap = plant.traits.light.filter(light => 
+        currentPlant.traits.light.includes(light)
+      ).length;
+      score += lightOverlap * 2;
+
+      // Similar humidity requirements
+      const humidityOverlap = plant.traits.humidity.filter(humidity => 
+        currentPlant.traits.humidity.includes(humidity)
+      ).length;
+      score += humidityOverlap * 2;
+
+      // Similar temperature requirements
+      const tempOverlap = plant.traits.temperature.filter(temp => 
+        currentPlant.traits.temperature.includes(temp)
+      ).length;
+      score += tempOverlap * 2;
+
+      // Same pet-friendly status
+      if (plant.traits.petFriendly === currentPlant.traits.petFriendly) score += 2;
+
+      // Similar purification level (within 10%)
+      if (Math.abs(plant.purification - currentPlant.purification) <= 10) score += 1;
+
+      return { plant, score };
+    });
+
+  // Sort by score and return top recommendations
+  return scoredPlants
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.plant);
 }

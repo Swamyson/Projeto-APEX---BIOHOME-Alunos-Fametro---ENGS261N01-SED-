@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router';
 import { MobileFrame } from '../components/MobileFrame';
-import { ArrowLeft, Droplets, Sun, Thermometer, Wind, Sparkles, Image as ImageIcon, Bell, CheckCircle2, Heart, Users } from 'lucide-react';
-import { allPlants } from '../data/plants';
+import { ArrowLeft, Droplets, Sun, Thermometer, Wind, Sparkles, Image as ImageIcon, Bell, CheckCircle2, Heart, Users, ChevronRight } from 'lucide-react';
+import { allPlants, getSimilarPlants } from '../data/plants';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import * as Dialog from '@radix-ui/react-dialog';
 
@@ -18,6 +18,7 @@ export function PlantDetailScreen() {
   const [reminderActive, setReminderActive] = useState(false);
   const [frequency, setFrequency] = useState(7);
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [similarPlants, setSimilarPlants] = useState<any[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem('plant_reminders');
@@ -28,6 +29,22 @@ export function PlantDetailScreen() {
         setReminderActive(true);
         setFrequency(existing.frequency || 7);
       }
+    }
+
+    // Save to recently viewed
+    if (plantId) {
+      const viewed = localStorage.getItem('recently_viewed_plants');
+      let viewedPlants = viewed ? JSON.parse(viewed) : [];
+      viewedPlants = viewedPlants.filter((id: string) => id !== plantId);
+      viewedPlants.unshift(plantId);
+      viewedPlants = viewedPlants.slice(0, 5); // Keep only last 5
+      localStorage.setItem('recently_viewed_plants', JSON.stringify(viewedPlants));
+    }
+
+    // Get similar plants
+    if (plantId) {
+      const similar = getSimilarPlants(plantId, 3);
+      setSimilarPlants(similar);
     }
   }, [plantId, roomId]);
 
@@ -209,6 +226,54 @@ export function PlantDetailScreen() {
               </div>
             </div>
 
+            {/* Similar Plants Recommendations */}
+            {similarPlants.length > 0 && (
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-purple-500" />
+                    <h2 className="text-base text-gray-900">Plantas similares</h2>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {similarPlants.map((similarPlant) => (
+                    <button
+                      key={similarPlant.id}
+                      onClick={() => navigate(`/plant/${similarPlant.id}`, { state: { roomId } })}
+                      className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-50 hover:shadow-md transition-all active:scale-[0.98] text-left"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                          <img
+                            src={similarPlant.image}
+                            alt={similarPlant.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-medium text-gray-900 truncate">{similarPlant.name}</h3>
+                          <p className="text-xs text-gray-500 italic truncate">{similarPlant.scientificName}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                              similarPlant.difficulty === 'Fácil' ? 'bg-green-100 text-green-700' :
+                              similarPlant.difficulty === 'Médio' ? 'bg-yellow-100 text-yellow-700' :
+                              'bg-red-100 text-red-700'
+                            }`}>
+                              {similarPlant.difficulty}
+                            </span>
+                            <span className="text-xs text-emerald-600 font-medium">
+                              {similarPlant.purification}% purificação
+                            </span>
+                          </div>
+                        </div>
+                        <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Layout Suggestions & Community */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-3">
@@ -232,7 +297,6 @@ export function PlantDetailScreen() {
                   </div>
                 ))}
               </div>
-              
               <button 
                 onClick={() => setGalleryOpen(true)}
                 className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-3 rounded-2xl text-sm font-medium flex items-center justify-center gap-2 transition-colors border border-emerald-200 shadow-sm active:scale-95"
@@ -241,7 +305,6 @@ export function PlantDetailScreen() {
                 Ver Galeria da Comunidade
               </button>
             </div>
-          </div>
 
           {/* Community Gallery Dialog */}
           <Dialog.Root open={galleryOpen} onOpenChange={setGalleryOpen}>
@@ -301,8 +364,8 @@ export function PlantDetailScreen() {
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
-
         </div>
+      </div>
       </MobileFrame>
     </div>
   );

@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { MobileFrame } from '../components/MobileFrame';
-import { allPlants } from '../data/plants';
-import { ArrowLeft, ChevronRight, Droplets, Sun, Thermometer, Wind, Star, Search, X } from 'lucide-react';
+import { allPlants, getSimilarPlants, Plant, PlantAlert } from '../data/plants';
+import { ArrowLeft, ChevronRight, Droplets, Sun, Thermometer, Wind, Star, Search, X, AlertTriangle, Info, Zap } from 'lucide-react';
 
 interface FilterState {
   difficulty: string[];
@@ -44,10 +44,15 @@ export function PlantsScreen() {
     light: [],
     watering: [],
   });
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
+  const [showRecommendations, setShowRecommendations] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem('plant_favorites');
     if (saved) setFavorites(JSON.parse(saved));
+
+    const viewed = localStorage.getItem('recently_viewed_plants');
+    if (viewed) setRecentlyViewed(JSON.parse(viewed));
   }, []);
 
   const toggleFavorite = (plantId: string, e: React.MouseEvent) => {
@@ -75,6 +80,42 @@ export function PlantsScreen() {
     setFilters({ difficulty: [], light: [], watering: [] });
     setSearchTerm('');
     setShowFavoritesOnly(false);
+  };
+
+  const renderAlert = (alert: PlantAlert) => {
+    const getAlertStyle = () => {
+      switch (alert.severity) {
+        case 'danger':
+          return 'bg-red-50 border-red-200 text-red-700';
+        case 'warning':
+          return 'bg-yellow-50 border-yellow-200 text-yellow-700';
+        case 'info':
+          return 'bg-blue-50 border-blue-200 text-blue-700';
+        default:
+          return 'bg-gray-50 border-gray-200 text-gray-700';
+      }
+    };
+
+    const getAlertIcon = () => {
+      switch (alert.severity) {
+        case 'danger':
+          return <AlertTriangle className="w-3 h-3" />;
+        case 'warning':
+          return <AlertTriangle className="w-3 h-3" />;
+        case 'info':
+          return <Info className="w-3 h-3" />;
+        default:
+          return <Info className="w-3 h-3" />;
+      }
+    };
+
+    return (
+      <div key={alert.type} className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs border ${getAlertStyle()}`}>
+        <span className="text-sm">{alert.icon}</span>
+        {getAlertIcon()}
+        <span className="font-medium">{alert.message}</span>
+      </div>
+    );
   };
 
   const filteredPlants = useMemo(() => {
@@ -115,6 +156,24 @@ export function PlantsScreen() {
 
     return result;
   }, [searchTerm, showFavoritesOnly, filters, favorites]);
+
+  const recommendations = useMemo(() => {
+    if (!showRecommendations) return [] as Plant[];
+
+    // Get recommendations based on recently viewed plants
+    const basePlants = recentlyViewed.length > 0 ? recentlyViewed : favorites.length > 0 ? favorites : ['zamioculca'];
+
+    const allRecommendations = new Set<string>();
+    basePlants.forEach(plantId => {
+      const similar = getSimilarPlants(plantId, 2);
+      similar.forEach(plant => allRecommendations.add(plant.id));
+    });
+
+    return Array.from(allRecommendations)
+      .slice(0, 6)
+      .map(id => allPlants.find(p => p.id === id))
+      .filter((plant): plant is Plant => Boolean(plant));
+  }, [recentlyViewed, favorites, showRecommendations]);
 
   const hasActiveFilters = searchTerm || showFavoritesOnly || Object.values(filters).some(arr => arr.length > 0);
 
@@ -241,6 +300,55 @@ export function PlantsScreen() {
               )}
             </div>
 
+            {/* Recommendations Section */}
+            {recommendations.length > 0 && !hasActiveFilters && (
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-purple-500" />
+                    Recomendações para você
+                  </h2>
+                  <button
+                    onClick={() => setShowRecommendations(!showRecommendations)}
+                    className="text-xs text-gray-500 hover:text-gray-700"
+                  >
+                    {showRecommendations ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </div>
+                <div className="flex overflow-x-auto gap-3 pb-2 -mx-5 px-5 snap-x hide-scrollbar">
+                  {recommendations.map((plant) => (
+                    <button
+                      key={plant.id}
+                      onClick={() => navigate(`/plant/${plant.id}`, { state: { roomId: 'geral' } })}
+                      className="min-w-[200px] bg-white rounded-2xl p-3 shadow-md snap-start border border-gray-50 hover:shadow-lg transition-all active:scale-[0.98]"
+                    >
+                      <div className="flex items-start gap-3 mb-2">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                          <img src={plant.image} alt={plant.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-sm font-medium text-gray-900 truncate">{plant.name}</h3>
+                          <p className="text-xs text-gray-500 italic truncate">{plant.scientificName}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                          plant.difficulty === 'Fácil' ? 'bg-green-100 text-green-700' :
+                          plant.difficulty === 'Médio' ? 'bg-yellow-100 text-yellow-700' :
+                          'bg-red-100 text-red-700'
+                        }`}>
+                          {plant.difficulty}
+                        </span>
+                        <span className="text-xs text-emerald-600 font-medium">
+                          {plant.purification}%
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Plants List */}
             {filteredPlants.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -255,10 +363,13 @@ export function PlantsScreen() {
             ) : (
               <div className="space-y-4">
                 {filteredPlants.map((plant) => (
-                  <button
+                  <div
                     key={plant.id}
                     onClick={() => navigate(`/plant/${plant.id}`, { state: { roomId: 'geral' } })}
-                    className="w-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all active:scale-[0.98] text-left group relative"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && navigate(`/plant/${plant.id}`, { state: { roomId: 'geral' } })}
+                    className="w-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all active:scale-[0.98] text-left group relative cursor-pointer"
                   >
                     {/* Favorite Star */}
                     <button
@@ -295,6 +406,17 @@ export function PlantsScreen() {
                               {plant.difficulty}
                             </span>
                           </div>
+                          {/* Plant Alerts */}
+                          {plant.alerts && plant.alerts.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mt-2">
+                              {plant.alerts.slice(0, 2).map(renderAlert)}
+                              {plant.alerts.length > 2 && (
+                                <div className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-gray-50 border border-gray-200 text-gray-600">
+                                  <span>+{plant.alerts.length - 2}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                         <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0 mt-1" />
                       </div>
@@ -354,7 +476,7 @@ export function PlantsScreen() {
                         </div>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
             )}
