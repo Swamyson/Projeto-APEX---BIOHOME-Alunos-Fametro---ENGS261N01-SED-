@@ -147,20 +147,7 @@ export function ResultsScreen() {
                 variants={itemVariants}
                 className="bg-white/[0.02] border border-white/[0.06] rounded-3xl p-5"
               >
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-5 h-5 text-emerald-400" strokeWidth={1.5} />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-zinc-200 mb-1">Dica de arranjo</h3>
-                    <p className="text-xs text-zinc-500 leading-relaxed mb-3">
-                      Para melhor resultado, distribua as plantas em diferentes alturas e próximas às janelas.
-                    </p>
-                    <button className="text-xs text-emerald-400 font-medium hover:text-emerald-300 transition-colors">
-                      Ver sugestões de layout →
-                    </button>
-                  </div>
-                </div>
+
               </motion.div>
             </motion.div>
           </div>
