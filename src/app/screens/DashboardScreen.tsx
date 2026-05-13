@@ -156,7 +156,7 @@ export function DashboardScreen() {
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="text-xs font-medium text-zinc-400 uppercase tracking-widest flex items-center gap-2">
                       <Droplets className="w-3.5 h-3.5 text-blue-400" />
-                      Lembretes de Rega
+                      Lembretes de Regar
                     </h2>
                     <span className="text-xs text-emerald-400 cursor-pointer">Ver todas</span>
                   </div>

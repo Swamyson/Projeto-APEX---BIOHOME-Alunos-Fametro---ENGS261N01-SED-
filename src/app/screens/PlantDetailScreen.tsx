@@ -183,7 +183,7 @@ export function PlantDetailScreen() {
                         </div>
                       </div>
                     ) : (
-                      <p className="text-xs text-zinc-500">Ative para receber lembretes de rega para esta planta.</p>
+                      <p className="text-xs text-zinc-500">Ative para receber lembretes de regar para esta planta.</p>
                     )}
                   </div>
                 </div>

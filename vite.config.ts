@@ -35,7 +35,7 @@ export default defineConfig({
     description: 'Monitoramento ambiental inteligente',
     theme_color: '#000000',
     background_color: '#000000',
-    display: 'standalone',
+    display: 'fullscreen',
     orientation: 'portrait',
 
     icons: [
