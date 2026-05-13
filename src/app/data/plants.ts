@@ -301,7 +301,7 @@ export const allPlants: Plant[] = [
       { icon: Droplets, text: 'Excelente umidificadora natural', color: 'text-cyan-600' }
     ],
     alerts: [
-      { type: 'pet-friendly', message: 'Segura para pets', icon: '🐱', severity: 'info' },
+      { type: 'pet-friendly', message: 'Segura para Crianças e Pets', icon: '🐱', severity: 'info' },
       { type: 'high-humidity', message: 'Requer alta umidade', icon: '💧', severity: 'warning' },
       { type: 'cold-sensitive', message: 'Sensível ao frio', icon: '❄️', severity: 'warning' }
     ]
@@ -336,7 +336,7 @@ export const allPlants: Plant[] = [
       { icon: Droplets, text: 'Altíssima taxa de transpiração e umidade', color: 'text-cyan-600' }
     ],
     alerts: [
-      { type: 'pet-friendly', message: 'Segura para pets', icon: '🐱', severity: 'info' },
+      { type: 'pet-friendly', message: 'Segura para Crianças e Pets', icon: '🐱', severity: 'info' },
       { type: 'high-humidity', message: 'Excelente umidificadora', icon: '💧', severity: 'info' },
       { type: 'cold-sensitive', message: 'Não tolera temperaturas abaixo de 10°C', icon: '❄️', severity: 'warning' }
     ]

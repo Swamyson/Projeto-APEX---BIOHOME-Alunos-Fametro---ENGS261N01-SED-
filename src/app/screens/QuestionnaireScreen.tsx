@@ -58,7 +58,7 @@ const questions: Question[] = [
     options: [
       { value: 'purificacao', label: 'Purificação do ar' },
       { value: 'facil', label: 'Fácil de cuidar / Baixa manutenção' },
-      { value: 'pet-friendly', label: 'Segura para Pets (Cães e Gatos)' },
+      { value: 'pet-friendly', label: 'Segura para Crianças e Pets' },
       { value: 'decoracao', label: 'Estética / Decoração' },
     ],
   },
