@@ -120,6 +120,25 @@ export function WelcomeScreen() {
               <span>Começar agora</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </motion.button>
+            {/* Footer */}
+<div className="apex-footer mt-5 flex flex-col items-center gap-2 text-xs text-emerald-200">
+
+  <div className="w-24 h-px bg-emerald-400/30 mb-1"></div>
+
+  <p className="tracking-wide">
+    Versão Beta 1.0
+  </p>
+
+  <a
+    href="https://instagram.com/apexbiohome"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="transition hover:text-white"
+  >
+    @apexbiohome
+  </a>
+
+</div>
             </div>
           </motion.div>
         </div>
