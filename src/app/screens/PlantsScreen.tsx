@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import { allPlants, getSimilarPlants, Plant, PlantAlert } from '../data/plants';
 import { ArrowLeft, ChevronRight, Droplets, Sun, Thermometer, Wind, Star, Search, X, AlertTriangle, Info, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -151,7 +151,7 @@ export function PlantsScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame>
+      <mFrame>
         <div className="relative h-full w-full overflow-hidden bg-[#060D0A]">
 
           {/* Ambient Background */}
@@ -447,7 +447,7 @@ export function PlantsScreen() {
             </motion.div>
           </div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -117,7 +117,7 @@ export function QuestionnaireScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame hideNavigation>
+      <mFrame hideNavigation>
         <div className="relative h-full w-full overflow-hidden bg-[#060D0A] flex flex-col">
 
           {/* Ambient Background */}
@@ -224,7 +224,7 @@ export function QuestionnaireScreen() {
             </motion.button>
           </div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

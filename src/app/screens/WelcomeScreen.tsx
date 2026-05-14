@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Leaf, Sprout, Heart, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import logo from '@/assets/logo.jpeg';
 
 export function WelcomeScreen() {
@@ -33,7 +33,7 @@ export function WelcomeScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame hideNavigation>
+      <mFrame hideNavigation>
         <div className="relative h-full w-full overflow-y-auto overflow-x-hidden bg-[#060D0A] flex flex-col justify-between [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
           {/* Abstract Ambient Background - Agora com animação de "respiração" */}
@@ -142,7 +142,7 @@ export function WelcomeScreen() {
             </div>
           </motion.div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

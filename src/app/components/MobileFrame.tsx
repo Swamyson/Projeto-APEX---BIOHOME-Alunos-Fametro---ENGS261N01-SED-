@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { Home, TrendingUp, Settings, Menu } from 'lucide-react';
 
-interface MobileFrameProps {
+interface mFrameProps {
   children: ReactNode;
   hideNavigation?: boolean;
 }
 
-export function MobileFrame({ children, hideNavigation = false }: MobileFrameProps) {
+export function mFrame({ children, hideNavigation = false }: mFrameProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;

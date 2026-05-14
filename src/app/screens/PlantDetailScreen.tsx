@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import { ArrowLeft, Droplets, Sun, Thermometer, Wind, Sparkles, Image as ImageIcon, Bell, CheckCircle2, Heart, Users, ChevronRight } from 'lucide-react';
 import { allPlants, getSimilarPlants } from '../data/plants';
 import { motion } from 'framer-motion';
@@ -97,7 +97,7 @@ export function PlantDetailScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame>
+      <mFrame>
         <div className="relative h-full w-full overflow-hidden bg-[#060D0A]">
 
           {/* Ambient orbs (behind hero) */}
@@ -364,7 +364,7 @@ export function PlantDetailScreen() {
             </Dialog.Root>
           </div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'framer-motion';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import logo from '@/assets/logo.jpeg';
 
 export function SplashScreen() {
@@ -40,7 +40,7 @@ export function SplashScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame hideNavigation>
+      <mFrame hideNavigation>
         <div className="relative h-full w-full overflow-hidden bg-[#060D0A] flex flex-col justify-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           
           {/* Abstract Ambient Background - Idêntico à WelcomeScreen */}
@@ -87,7 +87,7 @@ export function SplashScreen() {
           </motion.div>
           
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Home, Building2, ArrowRight, User } from 'lucide-react';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import { motion } from 'framer-motion';
 
 export function RegisterScreen() {
@@ -34,7 +34,7 @@ export function RegisterScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame hideNavigation>
+      <mFrame hideNavigation>
         <div className="relative h-full w-full overflow-y-auto overflow-x-hidden bg-[#060D0A] flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
           {/* Ambient Background */}
@@ -168,7 +168,7 @@ export function RegisterScreen() {
             </motion.button>
           </motion.div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }

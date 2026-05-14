@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { MobileFrame } from '../components/MobileFrame';
+import { mFrame } from '../components/mFrame';
 import { ArrowLeft, Wind, Droplets, Sparkles, ChevronRight, AlertCircle } from 'lucide-react';
 import { Plant, getRecommendations } from '../data/plants';
 import { motion } from 'framer-motion';
@@ -37,7 +37,7 @@ export function ResultsScreen() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 sm:p-8">
-      <MobileFrame>
+      <mFrame>
         <div className="relative h-full w-full overflow-hidden bg-[#060D0A]">
 
           {/* Ambient Background */}
@@ -165,7 +165,7 @@ export function ResultsScreen() {
             </motion.div>
           </div>
         </div>
-      </MobileFrame>
+      </mFrame>
     </div>
   );
 }
