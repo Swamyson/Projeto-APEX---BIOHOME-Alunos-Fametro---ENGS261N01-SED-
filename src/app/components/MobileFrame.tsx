@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { Home, TrendingUp, Settings, Menu } from 'lucide-react';
+import { useAppSettings } from '../contexts/AppSettingsContext';
 
 interface MobileFrameProps {
   children: ReactNode;
@@ -10,10 +11,12 @@ interface MobileFrameProps {
 export function MobileFrame({ children, hideNavigation = false }: MobileFrameProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, messages } = useAppSettings();
   const currentPath = location.pathname;
+  const isDark = theme === 'dark';
 
   const navButtonClass = (path: string) =>
-    `flex flex-col items-center gap-1 ${currentPath === path ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'} transition-colors`;
+    `flex flex-col items-center gap-1 ${currentPath === path ? 'text-emerald-600' : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-400 hover:text-gray-600'} transition-colors`;
 
   return (
     <div className="relative w-full max-w-[380px] h-[820px] mx-auto">
@@ -53,34 +56,34 @@ export function MobileFrame({ children, hideNavigation = false }: MobileFramePro
 
           {/* Bottom Navigation */}
           {!hideNavigation && (
-            <div className="flex-shrink-0 bg-white/80 backdrop-blur-xl border-t border-gray-200">
+            <div className={`flex-shrink-0 ${isDark ? 'bg-zinc-950/90 border-zinc-700' : 'bg-white/80 border-gray-200'} backdrop-blur-xl border-t`}>
               <div className="flex items-center justify-around px-6 py-3 pb-5">
                 <button onClick={() => navigate('/dashboard')} className={navButtonClass('/dashboard')}>
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${currentPath === '/dashboard' ? 'bg-emerald-100' : ''}`}>
                     <Home className="w-6 h-6" />
                   </div>
-                  <span className="text-xs">Início</span>
+                  <span className="text-xs">{messages.navigation.home}</span>
                 </button>
-                
+
                 <button onClick={() => navigate('/dashboard')} className={navButtonClass('/dashboard')}>
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center">
                     <TrendingUp className="w-6 h-6" />
                   </div>
-                  <span className="text-xs">Análise</span>
+                  <span className="text-xs">{messages.navigation.analysis}</span>
                 </button>
-                
+
                 <button onClick={() => navigate('/plants')} className={navButtonClass('/plants')}>
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${currentPath === '/plants' ? 'bg-emerald-100' : ''}`}>
                     <Menu className="w-6 h-6" />
                   </div>
-                  <span className="text-xs">Plantas</span>
+                  <span className="text-xs">{messages.navigation.plants}</span>
                 </button>
-                
-                <button className={navButtonClass('/config')}>
+
+                <button onClick={() => navigate('/settings')} className={navButtonClass('/settings')}>
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center">
                     <Settings className="w-6 h-6" />
                   </div>
-                  <span className="text-xs">Config</span>
+                  <span className="text-xs">{messages.navigation.settings}</span>
                 </button>
               </div>
             </div>

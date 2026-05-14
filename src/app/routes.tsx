@@ -7,6 +7,7 @@ import { QuestionnaireScreen } from "./screens/QuestionnaireScreen";
 import { ResultsScreen } from "./screens/ResultsScreen";
 import { PlantsScreen } from "./screens/PlantsScreen";
 import { PlantDetailScreen } from "./screens/PlantDetailScreen";
+import { SettingsScreen } from "./screens/SettingsScreen";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
   {
     path: "/plants",
     Component: PlantsScreen,
+  },
+  {
+    path: "/settings",
+    Component: SettingsScreen,
   },
   {
     path: "/plant/:plantId",
