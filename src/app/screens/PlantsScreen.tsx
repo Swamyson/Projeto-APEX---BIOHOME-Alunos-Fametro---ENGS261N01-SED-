@@ -268,7 +268,7 @@ export function PlantsScreen() {
 
                 {/* Watering */}
                 <div className="space-y-2">
-                  <p className="text-[10px] font-medium text-zinc-600 uppercase tracking-widest">Rega</p>
+                  <p className="text-[10px] font-medium text-zinc-600 uppercase tracking-widest">regar</p>
                   <div className="flex gap-2">
                     {Object.keys(wateringMap).map(watering => (
                       <button
@@ -435,7 +435,7 @@ export function PlantsScreen() {
                             </div>
                             <div className="flex items-center gap-2 text-xs col-span-2">
                               <Droplets className="w-3.5 h-3.5 text-blue-400" />
-                              <span className="text-zinc-500 line-clamp-1">Rega: {plant.care.water}</span>
+                              <span className="text-zinc-500 line-clamp-1">regar: {plant.care.water}</span>
                             </div>
                           </div>
                         </div>

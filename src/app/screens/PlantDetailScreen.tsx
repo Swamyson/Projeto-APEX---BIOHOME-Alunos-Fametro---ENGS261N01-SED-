@@ -146,7 +146,7 @@ export function PlantDetailScreen() {
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <Bell className="w-5 h-5 text-emerald-400" strokeWidth={1.5} />
-                        <h2 className="text-base font-medium text-white">Lembrete de Rega</h2>
+                        <h2 className="text-base font-medium text-white">Lembrete de regar</h2>
                       </div>
                       <button
                         onClick={toggleReminder}
@@ -214,7 +214,7 @@ export function PlantDetailScreen() {
                   <div className="flex items-start gap-3">
                     <Droplets className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
                     <div>
-                      <p className="text-sm text-zinc-200">Rega Recomendada</p>
+                      <p className="text-sm text-zinc-200">regar Recomendada</p>
                       <p className="text-xs text-zinc-500 mt-0.5">{plant.care.water}</p>
                     </div>
                   </div>
