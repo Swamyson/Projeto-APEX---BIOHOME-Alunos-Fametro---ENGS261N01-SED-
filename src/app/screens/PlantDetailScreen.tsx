@@ -19,6 +19,7 @@ export function PlantDetailScreen() {
   const [frequency, setFrequency] = useState(7);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [similarPlants, setSimilarPlants] = useState<any[]>([]);
+  const [selectedLayoutImage, setSelectedLayoutImage] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('plant_reminders');
@@ -286,13 +287,17 @@ export function PlantDetailScreen() {
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-3">
                   {(plant.layouts || [
-                    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400',
-                    'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400',
-                    'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400',
+                    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80', // Office desk
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', // Living room
+                    'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&q=80', // Bedroom
                   ]).map((layout, index) => (
-                    <div key={index} className="aspect-square rounded-2xl overflow-hidden bg-zinc-800 border border-white/[0.05]">
-                      <img src={layout} alt={`Layout ${index + 1}`} className="w-full h-full object-cover" />
-                    </div>
+                    <button 
+                      key={index} 
+                      onClick={() => setSelectedLayoutImage(layout)}
+                      className="aspect-square rounded-2xl overflow-hidden bg-zinc-800 border border-white/[0.05] transition-transform active:scale-95"
+                    >
+                      <img src={layout} alt={`Sugestão de Layout ${index + 1}`} className="w-full h-full object-cover" />
+                    </button>
                   ))}
                 </div>
                 <button
@@ -304,6 +309,39 @@ export function PlantDetailScreen() {
                 </button>
               </motion.div>
             </motion.div>
+
+            {/* Layout Image Fullscreen Viewer */}
+            <Dialog.Root open={!!selectedLayoutImage} onOpenChange={(open) => !open && setSelectedLayoutImage(null)}>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/95 backdrop-blur-md z-[60]" />
+                <Dialog.Content className="fixed inset-0 z-[60] flex flex-col focus:outline-none max-w-[480px] mx-auto">
+                  <div className="flex items-center justify-between p-5 bg-gradient-to-b from-black/80 to-transparent absolute top-0 left-0 right-0 z-10">
+                    <button
+                      onClick={() => setSelectedLayoutImage(null)}
+                      className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                    >
+                      <ArrowLeft className="w-5 h-5" />
+                    </button>
+                    <span className="text-white text-sm font-medium drop-shadow-md">Sugestão de Ambiente</span>
+                    <div className="w-10 h-10" /> {/* Spacer for centering */}
+                  </div>
+                  
+                  <div className="flex-1 flex items-center justify-center p-4">
+                    {selectedLayoutImage && (
+                      <motion.img 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.2 }}
+                        src={selectedLayoutImage} 
+                        alt="Layout ampliado" 
+                        className="w-full max-h-full object-contain rounded-2xl shadow-2xl" 
+                      />
+                    )}
+                  </div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
 
             {/* Community Gallery Dialog */}
             <Dialog.Root open={galleryOpen} onOpenChange={setGalleryOpen}>
@@ -328,14 +366,7 @@ export function PlantDetailScreen() {
                   <div className="flex-1 overflow-y-auto p-4 bg-[#060D0A]">
                     <ResponsiveMasonry columnsCountBreakPoints={{ 300: 2, 500: 2 }}>
                       <Masonry gutter="12px">
-                        {[
-                          'https://images.unsplash.com/photo-1545241047-6083a36ee159?w=400&q=80',
-                          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80',
-                          'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=400&q=80',
-                          'https://images.unsplash.com/photo-1593696954577-ab3d39317b97?w=400&q=80',
-                          'https://images.unsplash.com/photo-1416879573089-0f23d069c9b4?w=400&q=80',
-                          'https://images.unsplash.com/photo-1524423812865-dcda6d71b409?w=400&q=80',
-                        ].map((img, i) => (
+                        {allPlants.flatMap(p => [p.image, ...(p.layouts || [])]).filter((v, i, a) => a.indexOf(v) === i).map((img, i) => (
                           <div key={i} className="relative group rounded-xl overflow-hidden border border-white/[0.05]">
                             <img src={img} alt={`Community plant ${i}`} className="w-full object-cover rounded-xl" />
                             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-6 flex justify-between items-end">

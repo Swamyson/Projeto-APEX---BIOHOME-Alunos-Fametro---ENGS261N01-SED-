@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { MobileFrame } from '../components/MobileFrame';
-import { Sofa, Bed, UtensilsCrossed, Bath, Briefcase, Users, Coffee, DoorOpen, Leaf, Droplets, Clock, ChevronRight } from 'lucide-react';
+import { Sofa, Bed, UtensilsCrossed, Bath, Briefcase, Users, Coffee, DoorOpen, Leaf, Droplets, Clock, ChevronRight, Settings, User, Bell, Moon, Sun, LogOut, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { allPlants } from '../data/plants';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
 
 interface Room {
   id: string;
@@ -116,8 +117,53 @@ export function DashboardScreen() {
                       {userName}
                     </h1>
                   </div>
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.15)]">
-                    <Leaf className="w-5 h-5 text-emerald-400" strokeWidth={1.5} />
+                  <div className="flex items-center gap-2">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="outline-none">
+                          <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08] transition-colors cursor-pointer text-zinc-400">
+                            <Settings className="w-5 h-5" strokeWidth={1.5} />
+                          </div>
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-56 bg-zinc-900 border-zinc-800 text-zinc-100" align="end">
+                        <DropdownMenuLabel>Configurações</DropdownMenuLabel>
+                        <DropdownMenuSeparator className="bg-zinc-800" />
+                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
+                          <User className="mr-2 h-4 w-4" />
+                          <span>Perfil</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
+                          <Bell className="mr-2 h-4 w-4" />
+                          <span>Notificações</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
+                          <Shield className="mr-2 h-4 w-4" />
+                          <span>Privacidade</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
+                          <Sun className="mr-2 h-4 w-4" />
+                          <span>Modo Claro</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
+                          <Moon className="mr-2 h-4 w-4" />
+                          <span>Tema Escuro</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-zinc-800" />
+                        <DropdownMenuItem className="text-red-400 focus:bg-red-500/10 focus:text-red-400 cursor-pointer" onClick={() => {
+                          localStorage.removeItem('userName');
+                          localStorage.removeItem('userType');
+                          navigate('/');
+                        }}>
+                          <LogOut className="mr-2 h-4 w-4" />
+                          <span>Sair</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                      <Leaf className="w-5 h-5 text-emerald-400" strokeWidth={1.5} />
+                    </div>
                   </div>
                 </div>
                 <p className="text-sm text-zinc-500 mt-1">Selecione um ambiente para começar</p>

@@ -76,9 +76,9 @@ export const allPlants: Plant[] = [
       { icon: Sparkles, text: 'Resistência extrema a negligência', color: 'text-emerald-600' }
     ],
     layouts: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400',
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400',
-      'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400'
+      'https://images.unsplash.com/photo-1632207691143-643e2a9a9361?w=800&q=80',
+      'https://images.unsplash.com/photo-1593696140826-c58b021acf8b?w=800&q=80',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
     ],
     alerts: [
       { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
@@ -114,6 +114,11 @@ export const allPlants: Plant[] = [
       { icon: Wind, text: 'Remove formaldeído, xilenos e benzeno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Aumenta umidade local', color: 'text-cyan-600' }
     ],
+    layouts: [
+      'https://images.unsplash.com/photo-1596724878582-76f1a8fdc24f?w=800&q=80',
+      'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
+    ],
     alerts: [
       { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
       { type: 'high-humidity', message: 'Prefere alta umidade', icon: '💧', severity: 'warning' }
@@ -148,6 +153,11 @@ export const allPlants: Plant[] = [
       { icon: Wind, text: 'Filtra formaldeído, benzeno', color: 'text-blue-600' },
       { icon: Sparkles, text: 'Libera oxigênio à noite', color: 'text-emerald-600' }
     ],
+    layouts: [
+      'https://images.unsplash.com/photo-1687552212914-03a30c82053c?w=800&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80'
+    ],
     alerts: [
       { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
       { type: 'pet-friendly', message: 'Não tóxica para pets', icon: '🐱', severity: 'info' }
@@ -181,6 +191,11 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído e benzeno', color: 'text-blue-600' },
       { icon: Sparkles, text: 'Libera oxigênio à noite', color: 'text-emerald-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1599719840151-53fc447e7143?w=800&q=80',
+      'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&q=80',
+      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80'
     ]
   },
   {
@@ -211,6 +226,11 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído, benzeno e tricloroetileno', color: 'text-blue-600' },
       { icon: Sparkles, text: 'Libera oxigênio à noite', color: 'text-emerald-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1615389909888-76c2271881a3?w=800&q=80',
+      'https://images.unsplash.com/photo-1558442074-3c19857bc1dc?w=800&q=80',
+      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80'
     ]
   },
   {
@@ -240,6 +260,11 @@ export const allPlants: Plant[] = [
     },
     benefits: [
       { icon: Wind, text: 'Remove tricloroetileno, benzeno, formaldeído', color: 'text-blue-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1656875419747-4ddd4b09a899?w=800&q=80',
+      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80',
+      'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80'
     ]
   },
   {
@@ -269,6 +294,11 @@ export const allPlants: Plant[] = [
     },
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído e benzeno', color: 'text-blue-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1620803366004-119b57f54cd6?w=800&q=80',
+      'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80',
+      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80'
     ]
   },
   {
@@ -299,6 +329,11 @@ export const allPlants: Plant[] = [
     benefits: [
       { icon: Wind, text: 'Filtra formaldeído, tolueno e xileno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Excelente umidificadora natural', color: 'text-cyan-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1515054788900-574580f821ad?w=800&q=80',
+      'https://images.unsplash.com/photo-1463693396721-8ca0cfa2b3b5?w=800&q=80',
+      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80'
     ],
     alerts: [
       { type: 'pet-friendly', message: 'Segura para Crianças e Pets', icon: '🐱', severity: 'info' },
@@ -335,6 +370,11 @@ export const allPlants: Plant[] = [
       { icon: Wind, text: 'Remove formaldeído, xileno, tolueno', color: 'text-blue-600' },
       { icon: Droplets, text: 'Altíssima taxa de transpiração e umidade', color: 'text-cyan-600' }
     ],
+    layouts: [
+      'https://images.unsplash.com/photo-1615309363679-fed456ff8113?w=800&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80',
+      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80'
+    ],
     alerts: [
       { type: 'pet-friendly', message: 'Segura para Crianças e Pets', icon: '🐱', severity: 'info' },
       { type: 'high-humidity', message: 'Excelente umidificadora', icon: '💧', severity: 'info' },
@@ -368,6 +408,11 @@ export const allPlants: Plant[] = [
     },
     benefits: [
       { icon: Wind, text: 'Elimina diversos compostos nocivos', color: 'text-blue-600' }
+    ],
+    layouts: [
+      'https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=800&q=80',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80',
+      'https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&q=80'
     ],
     alerts: [
       { type: 'toxic', message: 'Tóxica para pets', icon: '🐶', severity: 'danger' },
