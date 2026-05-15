@@ -16,7 +16,7 @@ export function MobileFrame({ children, hideNavigation = false }: MobileFramePro
     `flex flex-col items-center gap-1 ${currentPath === path ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'} transition-colors`;
 
   return (
-    <div className="relative w-full max-w-[480px] h-[920px] mx-auto">
+    <div className="relative w-full max-w-[480px] h-[100dvh] mx-auto flex flex-col bg-white">
       {/* Phone Frame */}
       {/* <div className="absolute inset-0 bg-gray-900 rounded-[3rem] shadow-2xl p-3"> */}
         {/* <div className="relative w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col"> */}
