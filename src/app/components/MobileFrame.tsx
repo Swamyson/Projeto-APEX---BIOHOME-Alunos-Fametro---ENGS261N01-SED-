@@ -63,8 +63,8 @@ export function MobileFrame({ children, hideNavigation = false }: MobileFramePro
                   <span className="text-xs">Início</span>
                 </button>
                 
-                <button onClick={() => navigate('/dashboard')} className={navButtonClass('/dashboard')}>
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center">
+                <button onClick={() => navigate('/analysis')} className={navButtonClass('/analysis')}>
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${currentPath === '/analysis' ? 'bg-emerald-100' : ''}`}>
                     <TrendingUp className="w-6 h-6" />
                   </div>
                   <span className="text-xs">Análise</span>
@@ -83,7 +83,7 @@ export function MobileFrame({ children, hideNavigation = false }: MobileFramePro
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center outline-none">
                         <Settings className="w-6 h-6" />
                       </div>
-                      <span className="text-xs">Config</span>
+                      <span className="text-xs">Configurações</span>
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56 mb-2 bg-zinc-900 border-zinc-800 text-zinc-100" align="end">
