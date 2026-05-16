@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { MobileFrame } from '../components/MobileFrame';
-import { Sofa, Bed, UtensilsCrossed, Bath, Briefcase, Users, Coffee, DoorOpen, Leaf, Droplets, Clock, ChevronRight, Settings, User, Bell, Moon, Sun, LogOut, Shield } from 'lucide-react';
+import { Sofa, Bed, UtensilsCrossed, Bath, Briefcase, Users, Coffee, DoorOpen, Leaf, Droplets, Clock, ChevronRight, Settings, User, Bell, LogOut, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { allPlants } from '../data/plants';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
@@ -140,14 +140,6 @@ export function DashboardScreen() {
                         <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
                           <Shield className="mr-2 h-4 w-4" />
                           <span>Privacidade</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
-                          <Sun className="mr-2 h-4 w-4" />
-                          <span>Modo Claro</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
-                          <Moon className="mr-2 h-4 w-4" />
-                          <span>Tema Escuro</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-zinc-800" />
                         <DropdownMenuItem className="text-red-400 focus:bg-red-500/10 focus:text-red-400 cursor-pointer" onClick={() => {
