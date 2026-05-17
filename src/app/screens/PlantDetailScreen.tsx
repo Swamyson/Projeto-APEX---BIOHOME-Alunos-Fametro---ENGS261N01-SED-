@@ -6,7 +6,6 @@ import { allPlants, getSimilarPlants } from '../data/plants';
 import { motion } from 'framer-motion';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import * as Dialog from '@radix-ui/react-dialog';
-
 export function PlantDetailScreen() {
   const navigate = useNavigate();
   const { plantId } = useParams();
@@ -287,9 +286,9 @@ export function PlantDetailScreen() {
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-3">
                   {(plant.layouts || [
-                    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80', // Office desk
-                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', // Living room
-                    'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&q=80', // Bedroom
+                    planta1, // Office desk
+                    planta2, // Living room
+                    planta3 // Bedroom
                   ]).map((layout, index) => (
                     <button 
                       key={index} 
