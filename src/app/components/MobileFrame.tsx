@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { Home, TrendingUp, Settings, Menu, User, Bell, Shield, Moon, Sun, LogOut } from 'lucide-react';
+import { Home, TrendingUp, Settings, Menu, User, Bell, Shield, LogOut } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 
 interface MobileFrameProps {
@@ -100,14 +100,6 @@ export function MobileFrame({ children, hideNavigation = false }: MobileFramePro
                     <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
                       <Shield className="mr-2 h-4 w-4" />
                       <span>Privacidade</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
-                      <Sun className="mr-2 h-4 w-4" />
-                      <span>Modo Claro</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="focus:bg-zinc-800 focus:text-white cursor-pointer">
-                      <Moon className="mr-2 h-4 w-4" />
-                      <span>Tema Escuro</span>
                     </DropdownMenuItem>                    <DropdownMenuSeparator className="bg-zinc-800" />
                     <DropdownMenuItem className="text-red-400 focus:bg-red-500/10 focus:text-red-400 cursor-pointer" onClick={() => {
                       localStorage.removeItem('userName');
